@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>파일 업로드</title>
+
+</head>
+<body>
+<h3>파일 업로드 목록</h3>
+<div th:if="${file != null}">
+    <li><span th:text="${file.fileName}"></span>
+        <a th:href="@{/siteuser/download?fileName={id}(id=${file.fileName})}">
+            다운로드</a>
+    </li>
+</div>
+<div th:unless="${file != null}">
+    <p>업로드한 파일이 없습니다.</p>
+</div>
+18
+</body>
+19
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>사용자 검색</title>
+</head>
+
+<body>
+	<h3>사용자 검색</h3>
+	<form action="#" th:action="@{/siteuser/find}" method="post">
+		<p>이메일: <input type="email" name="email" /></p>
+		<p><input type="reset" value="취소" />
+			<input type="submit" value="검색" />
+		</p>
+	</form>
+</body>
+
+</html>

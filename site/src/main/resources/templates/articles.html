@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>게시글 목록</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f5f5f5;
+			margin: 0;
+			padding: 20px;
+		}
+
+		h3 {
+			color: #333;
+		}
+
+		p {
+			margin-bottom: 10px;
+		}
+
+		a {
+			color: #333;
+			text-decoration: none;
+			margin-right: 10px;
+		}
+
+		table {
+			border-collapse: collapse;
+			width: 100%;
+			background-color: #fff;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		th {
+			background-color: #96D4D4;
+			color: #fff;
+			padding: 10px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+
+		td {
+			padding: 10px;
+			border-bottom: 1px solid #ddd;
+		}
+
+		td:first-child {
+			width: 80px;
+		}
+
+		td a {
+			color: #333;
+			font-weight: bold;
+		}
+
+		td a:hover {
+			text-decoration: underline;
+		}
+	</style>
+</head>
+
+<body>
+	<h3>게시글 목록</h3>
+	<p>
+		<a th:href="@{/siteuser}">첫 페이지</a>
+		<a th:href="@{/siteuser/bbs/write}">글 작성</a>
+	</p>
+	<table>
+		<tr>
+			<th>번호</th>
+			<th>제목</th>
+			<th>작성자</th>
+			<th>작성시간</th>
+		</tr>
+		<tr th:each="a: ${articles}">
+			<td th:text="${a.num}"></td>
+			<td>
+				<a th:href="@{/siteuser/read?num={id}(id=${a.num})}">[[${a.title}]]</a>
+			</td>
+			<td th:text="${a.author}"></td>
+			<td th:text="${a.time}"></td>
+			<tr>
+				<td colspan = 3>
+					<th:block th:each="p:${#numbers.sequence(0,articles.totalPages -1)}">
+						<a th:href="@{/siteuser/bbs?pno={p}(p=${p})}">[[${p}]]</a>
+					</th:block>
+				</td>
+		</tr>
+	</table>
+</body>
+
+</html>

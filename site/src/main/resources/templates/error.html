@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>에러</title>
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+	<h3>에러</h3>
+	<th:block th:if="${reason} == 'wrong email' ">
+		<p>찾는 사용자가 없습니다.</p>
+		<p><a href="/siteuser/find">검색 다시 시도</a></p>
+	</th:block>
+
+	<th:block th:if="${reason}=='wrong password' ">
+		<p>이메일 혹은 암호가 올바르지 않습니다.</p>
+		<p><a href=" /siteuser/login">로그인 다시 시도</a></p>
+	</th:block>
+
+	<th:block th:if="${reason} == 'login required' ">
+		<p>로그인이 필요한 서비스입니다.</p>
+		<p><a href="/siteuser/login">로그인</a></p>
+	</th:block>
+	
+</body>
+
+</html>

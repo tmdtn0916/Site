@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<style>
+			table,td{
+				border:1px solid lightgray;
+				border-collapse: collapse;
+			}
+		</style>
+		<title>게시글</title>
+		<p> <a th:href="@{/siteuser/bbs}">글 목록</a> </p>
+		<table style="width:100%">
+			<tr>
+				<td>제목</td>
+				<td>[[${article.title}]]</td>
+			</tr>
+			<tr>
+				<td>작성자</td>
+				<td>[[${article.author}]]</td>
+			</tr>
+			<tr>
+				<td>내용</td>
+				<td>[[${article.body}]]</td>
+			</tr>
+		</table>
+	</head>
+</html>
