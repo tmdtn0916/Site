@@ -34,6 +34,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequestMapping(path = "/siteuser")
@@ -156,15 +158,26 @@ public class SiteUserController {
 
 	@PostMapping(path = "/bbs/add")
 	public String addArticle(@ModelAttribute Article article, Model model, @RequestParam MultipartFile file) {
-		articleRepository.save(article);
 		try {
+			LocalDateTime time = LocalDateTime.now();
+			String date = time.format(DateTimeFormatter.ofPattern("MMddHHmm"));
+			System.out.println(date);
 			if(! file.isEmpty()) {
 				String newName = file.getOriginalFilename();
-				newName = newName.replace(' ','_');
-				FileDto dto = new FileDto(newName, file.getContentType());
+				String newFileName = "";
+				int lastDotIndex = newName.lastIndexOf(".");
+				if (lastDotIndex != -1) {
+					newFileName = newName.substring(0, lastDotIndex) + date + newName.substring(lastDotIndex);
+					System.out.println("새 파일 이름: " + newFileName);
+				}
+				newFileName = newFileName.replace(' ','_');
+				FileDto dto = new FileDto(newFileName, file.getContentType());
 				File upfile = new File(dto.getFileName());
 				file.transferTo(upfile);
 				model.addAttribute("file",dto);
+
+				articleRepository.save(article);
+
 			}
 		} catch (Exception e) {
 			System.out.println("error");
