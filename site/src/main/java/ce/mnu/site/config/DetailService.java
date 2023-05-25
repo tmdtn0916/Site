@@ -23,7 +23,7 @@ public class DetailService implements UserDetailsService{
 		return User.builder()
 				.username(user.getEmail())
 				.password(user.getPasswd())
-				.authorities("DEFAULT")
+				.authorities("ROLE_ADMIN")
 				.build();
 	}
 }

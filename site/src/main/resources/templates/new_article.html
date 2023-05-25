@@ -8,10 +8,11 @@
 
 <body>
 	<h3>게시물 글 작성</h3>
-	<form action="#" th:action="@{/siteuser/bbs/add}" th:object="${article}" method="post">
+	<form action="#" th:action="@{/siteuser/bbs/add}" th:object="${article}" enctype="multipart/form-data" method="post">
 		<p>제목: <input type="text" th:field="*{title}" /></p>
 		<p>작성자: <input type="text" th:field="*{author}" /></p>
 		<p>내용: <input type="text" th:field="*{body}" /></p>
+		<input type="file" name="file"/>
 		<p><input type="reset" value="취소" />
 			<input type="submit" value="등록" />
 		</p>

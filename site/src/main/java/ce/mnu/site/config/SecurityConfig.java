@@ -1,15 +1,20 @@
 package ce.mnu.site.config;
 
+import jakarta.servlet.DispatcherType;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+@SpringBootApplication
+public class SecurityConfig{
 	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -17,26 +22,29 @@ public class SecurityConfig {
 	}
 	
 	private static final String[] AUTH_WHITELIST = {
-			"/siteuser", "/siteuser/**", "/css/**", "/templates/**","/**","/resource/**"
+			"/siteuser", "/siteuser/**", "/css/**", "/templates/**","/test","/resource/**","/home"
 	};
-	
-	
+
+	@Bean
+	public SpringSecurityDialect springSecurityDialect(){
+		return new SpringSecurityDialect();
+	}
+
 	@Bean
 	protected SecurityFilterChain config(HttpSecurity http) throws Exception {
 		return http
-				.authorizeHttpRequests(authorize -> authorize.
-						shouldFilterAllDispatcherTypes(false)
-						.requestMatchers(AUTH_WHITELIST)
-						.permitAll()
-						.anyRequest()
-						.authenticated())
+				.authorizeHttpRequests(authorize -> authorize
+						.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+						.requestMatchers(AUTH_WHITELIST).permitAll()
+						.anyRequest().authenticated())
 				.formLogin(login -> login
-						.loginPage("/siteuser/login")
-						.loginProcessingUrl("/siteuser/login")
+						.loginPage("/login")
+						.loginProcessingUrl("/login")
 						.usernameParameter("email")
-						.passwordParameter("passwd")
-						.defaultSuccessUrl("/siteuser",true)
+						.passwordParameter("password")
+						.defaultSuccessUrl("/home",true)
 						.permitAll())
+				.logout(Customizer.withDefaults())
 				.build();
 	}
 

@@ -155,8 +155,20 @@ public class SiteUserController {
 	}
 
 	@PostMapping(path = "/bbs/add")
-	public String addArticle(@ModelAttribute Article article, Model model) {
+	public String addArticle(@ModelAttribute Article article, Model model, @RequestParam MultipartFile file) {
 		articleRepository.save(article);
+		try {
+			if(! file.isEmpty()) {
+				String newName = file.getOriginalFilename();
+				newName = newName.replace(' ','_');
+				FileDto dto = new FileDto(newName, file.getContentType());
+				File upfile = new File(dto.getFileName());
+				file.transferTo(upfile);
+				model.addAttribute("file",dto);
+			}
+		} catch (Exception e) {
+			System.out.println("error");
+		}
 		model.addAttribute("article", article);
 		return "saved";
 	}
