@@ -3,17 +3,26 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default_layout}">
 
-<!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
-  <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
 </th:block>
-<!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-  <!--    <script th:src="@{/js/page/home.js}"></script>-->
 </th:block>
 
 <!-- Content -->
 <div layout:fragment="content">
-  <h1>Content</h1>
+    <!-- 게시글 목록 -->
+    <div class="post-list">
+        <h2>게시글 목록</h2>
+        <ul class="list-group">
+            <li class="list-group-item">게시글 1</li>
+            <li class="list-group-item">게시글 2</li>
+            <li class="list-group-item">게시글 3</li>
+            <!-- 게시글 목록을 동적으로 출력하는 경우, 서버 사이드 코드를 이용하여 게시글 목록을 생성합니다. -->
+            <!-- 예를 들어, Thymeleaf의 반복문을 사용하여 게시글 목록을 출력할 수 있습니다. -->
+            <!-- 예시: -->
+            <!-- <li class="list-group-item" th:each="post : ${posts}" th:text="${post.title}"></li> -->
+        </ul>
+    </div>
+
 </div>
 </html>

@@ -1,6 +1,7 @@
 package ce.mnu.site.config;
 
 import jakarta.servlet.DispatcherType;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +35,7 @@ public class SecurityConfig{
 	protected SecurityFilterChain config(HttpSecurity http) throws Exception {
 		return http
 				.authorizeHttpRequests(authorize -> authorize
+						.requestMatchers("/login","/signup").anonymous()
 						.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 						.requestMatchers(AUTH_WHITELIST).permitAll()
 						.anyRequest().authenticated())
@@ -42,9 +44,15 @@ public class SecurityConfig{
 						.loginProcessingUrl("/login")
 						.usernameParameter("email")
 						.passwordParameter("password")
-						.defaultSuccessUrl("/home",true)
-						.permitAll())
-				.logout(Customizer.withDefaults())
+						.defaultSuccessUrl("/home",false)
+						.permitAll(false))
+				.logout(logout -> logout
+						.logoutUrl("/logout")
+						.invalidateHttpSession(true)
+						.clearAuthentication(true)
+						.logoutSuccessHandler((request, response, authentication) -> {
+					response.sendRedirect("/home");// 로그아웃 시 권한 제거)
+						}))
 				.build();
 	}
 
