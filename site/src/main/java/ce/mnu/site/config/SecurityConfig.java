@@ -1,11 +1,9 @@
 package ce.mnu.site.config;
 
 import jakarta.servlet.DispatcherType;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
@@ -34,6 +32,7 @@ public class SecurityConfig{
 	@Bean
 	protected SecurityFilterChain config(HttpSecurity http) throws Exception {
 		return http
+				.csrf().disable()
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers("/login","/signup").anonymous()
 						.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()

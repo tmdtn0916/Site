@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8">
-		<style>
-			table,td{
-				border:1px solid lightgray;
-				border-collapse: collapse;
-			}
-		</style>
-		<title>게시글</title>
-		<p> <a th:href="@{/siteuser/bbs}">글 목록</a> </p>
-		<table style="width:100%">
-			<tr>
-				<td>제목</td>
-				<td>[[${article.title}]]</td>
-			</tr>
-			<tr>
-				<td>작성자</td>
-				<td>[[${article.author}]]</td>
-			</tr>
-			<tr>
-				<td>내용</td>
-				<td>[[${article.body}]]</td>
-			</tr>
-		</table>
-	</head>
+<head>
+  <meta charset="UTF-8">
+  <title>글 작성 페이지</title>
+</head>
+<body>
+<div th:replace="~{layout/header :: headerFragment}"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script type="module" src="/js/summernote.js"></script>
+<div class="container">
+  <h1>글 작성 페이지</h1>
+  <form action="#" th:object="${article}">
+    <div class="form-group">
+      <label for="title">제목</label>
+      <input type="text" class="form-control" id="title" name="title" th:field="*{title}">
+    </div>
+    <div class="form-group">
+      <label for="content">내용</label>
+      <textarea class="form-control summernote" id="content" name="body" th:field="*{content}"></textarea>
+    </div>
+    <button type="button" id="save-btn" class="btn btn-primary">작성</button>
+  </form>
+</div>
+
+<!-- 부트스트랩 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+</body>
 </html>
