@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ArticleService {
     private final ArticleRepository articleRepository;
@@ -22,5 +24,10 @@ public class ArticleService {
 
     public Page<Article> articleList(Pageable pageable) {
         return articleRepository.findAll(pageable);
+    }
+
+    public Article findById(Long id) {
+        Optional<Article> optionalArticle = articleRepository.findById(id);
+        return optionalArticle.orElse(null);
     }
 }

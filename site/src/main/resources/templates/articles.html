@@ -3,28 +3,44 @@
       layout:decorate="~{layout/default_layout}">
 
 <th:block layout:fragment="css">
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
 </th:block>
 <th:block layout:fragment="script">
 </th:block>
 
-<div class="container" layout:fragment="content">
-	<div class="text-center">
-      <a class="btn btn-primary" th:href="@{/bbs/write}">글 작성</a>
-    </div>
-    
-  <div th:each="board : ${boards.content}" class="card m-2">
-    <div class="card-body">
-      <h4 class="card-title" th:text="${board.title}">글 목록</h4>
-      <a th:href="@{/board/{id}(id=${board.id})}" class="btn btn-primary">글 보기</a>
-    </div>
+<div class="container-fluid" style="max-width: 1200px;" layout:fragment="content">
+  <div class="text-center">
+    <a class="btn btn-primary" th:href="@{/bbs/write}">글 작성</a>
+  </div>
+  <div class="row">
+    <table class="table" id="article-table">
+      <thead>
+      <tr>
+        <th class="title col-6"><a>제목</a></th>
+        <th class="hashtag col-2 text-center"><a>작성자</a></th>
+        <th class="user-id text-center"><a>추천수</a></th>
+        <th class="created-at text-center"><a>작성일</a></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="board : ${boards.content}">
+        <td>
+          <a th:href="@{'/bbs/read/' + ${board.id}}">
+            <span th:text="${board.title}"></span>
+          </a>
+        </td>
+        <td class="text-center" th:text="한승수"></td>
+        <td class="text-center" th:text="1"></td>
+        <td class="text-center" th:text="2022-10-32"></td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 
   <ul class="pagination justify-content-center">
     <li th:classappend="${boards.first} ? 'page-item disabled' : 'page-item'">
       <a class="page-link" th:href="@{'?page=' + ${boards.number-1}}" th:text="이전"></a>
     </li>
-
-
 
     <li th:each="page: ${#numbers.sequence(0, boards.totalPages-1)}"
         th:if="${page >= boards.number-3 and page <= boards.number+3}"

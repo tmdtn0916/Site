@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @Data
@@ -19,5 +21,12 @@ public class Article {
 
     @Lob
     private String content;
+
+    @ManyToOne
+    @JoinColumn
+    private SiteUser user;
+
+//    @OneToMany(mappedBy = "article")
+//    private List<Comment> comments;
 
 }
