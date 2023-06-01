@@ -10,7 +10,6 @@
 
 <div class="container-fluid" style="max-width: 1200px;" layout:fragment="content">
   <div class="text-center">
-    <a class="btn btn-primary" th:href="@{/bbs/write}">글 작성</a>
   </div>
   <div class="row">
     <table class="table" id="article-table">
@@ -36,7 +35,9 @@
       </tbody>
     </table>
   </div>
-
+<div class="text-right">
+  <a class="btn btn-primary float-right" th:href="@{/bbs/write}">글 작성</a>
+</div>
   <ul class="pagination justify-content-center">
     <li th:classappend="${boards.first} ? 'page-item disabled' : 'page-item'">
       <a class="page-link" th:href="@{'?page=' + ${boards.number-1}}" th:text="이전"></a>
@@ -55,7 +56,6 @@
       <a class="page-link" th:href="@{'?page=' + ${boards.number+1}}" th:text="다음"></a>
     </li>
   </ul>
-
 </div>
 
 
