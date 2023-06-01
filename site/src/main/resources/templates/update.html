@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="password"] {
+            padding: 8px 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+
+        /* 수정 시작 */
+        h3 {
+            text-align: center;
+            color: #555;
+        }
+
+        form p span {
+            font-weight: bold;
+            color: #777;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="password"] {
+            background-color: #eee;
+            border-color: #ddd;
+            color: #333;
+        }
+
+        input[type="submit"] {
+            background-color: #555;
+            border-color: #444;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #333;
+        }
+        /* 수정 끝 */
+    </style>
+<title>사용자 정보 변경</title>
+</head>
+<body>
+	<h3>내정보 변경</h3>
+	<form action="#" th:action="@{/update}"  th:object="${siteuser}" method="post">
+		<p>현재 주소: <span th:text="${user.address}"></span></p>
+        <p>현재 전화번호: <span th:text="${user.tel}"></span></p>
+        <p>새 주소: <input type="text" name="address"/></p>
+        <p>새 전화번호: <input type="tel" name="tel"/></p>
+        <p>새 비밀번호: <input type="password" name="passwd"/></p>
+        <input type="submit" value="Update"/>
+	</form>
+</body>
+</html>

@@ -2,55 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>홈페이지</title>
+  <title>스포츠 커뮤니티</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">홈페이지 로고</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#">메뉴1</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">메뉴2</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">메뉴3</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+<div th:replace="~{layout/header :: headerFragment}"></div>
 
-<div class="jumbotron">
+<div class="jumbotron" style="background-image: url('/images/체육.png'); background-size: cover; background-repeat: no-repeat; ">
   <div class="container">
-    <h1 class="display-4">환영합니다!</h1>
-    <p class="lead">홈페이지의 소개 문구를 작성해주세요.</p>
-    <a class="btn btn-primary btn-lg" href="#" role="button">자세히 보기</a>
+    <h1 class="display-4" style="font-weight: bold;">스포츠 게시판</h1>
+<p class="lead" style="font-weight: bold; font-size: 1.2em;">스포츠 커뮤니티</p>
   </div>
 </div>
 
 <div class="container">
   <div class="row">
     <div class="col-md-4">
-      <h2>서비스1</h2>
-      <p>서비스1에 대한 설명을 작성해주세요.</p>
-      <a class="btn btn-secondary" href="#" role="button">자세히 보기</a>
+      <h2>베스트 게시글</h2>
+      <a class="btn btn-secondary"  style="background-color: #007bff; color: #fff;" href="/home" role="button">베스트 게시글</a>
     </div>
     <div class="col-md-4">
-      <h2>서비스2</h2>
-      <p>서비스2에 대한 설명을 작성해주세요.</p>
-      <a class="btn btn-secondary" href="#" role="button">자세히 보기</a>
-    </div>
-    <div class="col-md-4">
-      <h2>서비스3</h2>
-      <p>서비스3에 대한 설명을 작성해주세요.</p>
-      <a class="btn btn-secondary" href="#" role="button">자세히 보기</a>
+      <h2>게시글</h2>
+      <a class="btn btn-secondary"  style="background-color: #007bff; color: #fff;" href="/bbs" role="button">게시글</a>
     </div>
   </div>
 </div>

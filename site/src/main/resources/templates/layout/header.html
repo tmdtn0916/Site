@@ -3,7 +3,7 @@
 <!--headerFragment 선언-->
 <div th:fragment="headerFragment">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">홈페이지 로고</a>
+    <a class="navbar-brand" href="/homepage">스포츠</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -11,11 +11,14 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="btn btn-secondary my-2 my-sm-0" sec:authorize-expr="!isAuthenticated()" th:href="@{/signup}">Sign up</a>
-          <a class="btn btn-secondary my-2 my-sm-0" sec:authorize-expr="!isAuthenticated()" th:href="@{/login}">Login</a>
-          <form class="form-inline my-2 my-lg-0" sec:authorize-expr="isAuthenticated()" th:action="@{/logout}" method="post">
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">logout</button>
-          </form>
+          <div class="btn-group">
+            <a class="btn btn-secondary my-2 my-sm-0" style="background-color: #007bff; color: #fff;"  sec:authorize-expr="!isAuthenticated()" th:href="@{/signup}">Sign up</a>
+            <a class="btn btn-secondary my-2 my-sm-0" style="background-color: #007bff; color: #fff;" sec:authorize-expr="!isAuthenticated()" th:href="@{/login}">Login</a>
+            <a class="btn btn-secondary my-2 my-sm-0" style="background-color: #007bff; color: #fff;" sec:authorize-expr="isAuthenticated()" th:href="@{/update}" method="post">정보변경</a>
+            <form class="form-inline" sec:authorize-expr="isAuthenticated()" th:action="@{/logout}" method="post">
+              <button class="btn btn-secondary my-2 my-sm-0"  style="background-color: #007bff; color: #fff;" type="submit">logout</button>
+            </form>
+          </div>
         </li>
       </ul>
     </div>

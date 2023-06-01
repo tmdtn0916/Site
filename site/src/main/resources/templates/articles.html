@@ -8,7 +8,10 @@
 </th:block>
 
 <div class="container" layout:fragment="content">
-
+	<div class="text-center">
+      <a class="btn btn-primary" th:href="@{/bbs/write}">글 작성</a>
+    </div>
+    
   <div th:each="board : ${boards.content}" class="card m-2">
     <div class="card-body">
       <h4 class="card-title" th:text="${board.title}">글 목록</h4>
