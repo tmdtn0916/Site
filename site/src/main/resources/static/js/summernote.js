@@ -1,7 +1,7 @@
 $('#content').summernote({
     placeholder: '내용을 입력해 주세요',
     tabsize: 2,
-    height: 120,
+    height: 400,
     lang: "ko-KR",
     toolbar: [
         ['style', ['style']],
@@ -25,7 +25,6 @@ saveBtn.addEventListener('click', function() {
         url: "/bbs/add",
         data: JSON.stringify(data),
         contentType: "application/json; charset=utf-8",
-        //    dataType: "json",
         success: function(response) {
             alert("작성 완료");
             location.href = "/bbs";
@@ -35,21 +34,3 @@ saveBtn.addEventListener('click', function() {
         console.log(JSON.stringify(error));
     });
 })
-
-function sendFile(file, el) {
-    let form_data = new FormData();
-    form_data.append('file', file);
-    $.ajax({
-        data: form_data,
-        type: "POST",
-        url: '/image',
-        cache: false,
-        contentType: false,
-        enctype: 'multipart/form-data',
-        processData: false,
-        success: function(url) {
-            $(el).summernote('editor.insertImage', url);
-            $('#imageBoard > ul').append('<li><img src="' + url + '" width ="480" height="auto"/><li>');
-        }
-    })
-}

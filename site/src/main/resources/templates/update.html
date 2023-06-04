@@ -1,88 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<meta charset="UTF-8">
-<style>
-        body {
-            background-color: #f2f2f2;
-            font-family: Arial, sans-serif;
-        }
-
-        form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin: 20px auto;
-            max-width: 600px;
-            text-align: center;
-        }
-
-        input[type="text"],
-        input[type="tel"],
-        input[type="password"] {
-            padding: 8px 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            margin-bottom: 10px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #3e8e41;
-        }
-
-        /* 수정 시작 */
-        h3 {
-            text-align: center;
-            color: #555;
-        }
-
-        form p span {
-            font-weight: bold;
-            color: #777;
-        }
-
-        input[type="text"],
-        input[type="tel"],
-        input[type="password"] {
-            background-color: #eee;
-            border-color: #ddd;
-            color: #333;
-        }
-
-        input[type="submit"] {
-            background-color: #555;
-            border-color: #444;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #333;
-        }
-        /* 수정 끝 */
-    </style>
-<title>사용자 정보 변경</title>
+    <meta charset="UTF-8">
+    <title>사용자 정보 변경</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-	<h3>내정보 변경</h3>
-	<form action="#" th:action="@{/update}"  th:object="${siteuser}" method="post">
-		<p>현재 주소: <span th:text="${user.address}"></span></p>
-        <p>현재 전화번호: <span th:text="${user.tel}"></span></p>
-        <p>새 주소: <input type="text" name="address"/></p>
-        <p>새 전화번호: <input type="tel" name="tel"/></p>
-        <p>새 비밀번호: <input type="password" name="passwd"/></p>
-        <input type="submit" value="Update"/>
-	</form>
+<div th:replace="~{layout/header :: headerFragment}"></div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="module" src="/js/userUpdate.js"></script>
+<div class="container">
+    <h3>내정보 변경</h3>
+    <form action="#">
+        <div class="form-group">
+            <label class="name" th:text="|이름: ${user.name}|"></label>
+        </div>
+        <div class="form-group">
+            <label class="email" th:text="|이메일: ${#authentication.name}|"></label>
+        </div>
+        <div class="form-group">
+            <label>현재 암호</label>
+            <input type="password" class="form-control" id="password" name="password"/>
+        </div>
+        <div class="form-group">
+            <label for="newPassword">새 비밀번호:</label>
+            <input type="password" class="form-control" id="newPassword" name="passwd"/>
+        </div>
+        <div class="form-group">
+            <label for="newPassword">암호 확인:</label>
+            <input type="password" class="form-control" id="checkPassword" name="checkPassword"/>
+        </div>
+        <div class="form-group">
+            <label for="tel">전화번호:</label>
+            <input type="tel" class="form-control" id="tel" name="tel" th:value="${user.tel}"/>
+        </div>
+        <div class="form-group">
+            <label for="address">주소:</label>
+            <input type="tel" class="form-control" id="address" name="address" th:value="${user.address}"/>
+        </div>
+
+
+        <button type="button" id="user-update-btn" class="btn btn-primary">Update</button>
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -12,8 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long>{
-	@Query(value = "Select num, title, author, time from article", nativeQuery = true)
-	Page<ArticleHeader> findArticleHeaders(Pageable pageable);
-
 	Optional<Article> findById(Long id);
+
+
 }

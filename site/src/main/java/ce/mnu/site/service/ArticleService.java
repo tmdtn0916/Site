@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Service
@@ -23,11 +24,23 @@ public class ArticleService {
     }
 
     public Page<Article> articleList(Pageable pageable) {
-        return articleRepository.findAll(pageable);
+        Page<Article> articles = articleRepository.findAll(pageable);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        articles.forEach(article -> {
+            String formattedCreateTime = article.getCreateTime().format(formatter);
+            article.setFormattedCreateTime(formattedCreateTime);
+        });
+
+        return articles;
     }
 
     public Article findById(Long id) {
         Optional<Article> optionalArticle = articleRepository.findById(id);
         return optionalArticle.orElse(null);
+    }
+
+    public void save(Article article) {
+        articleRepository.save(article);
     }
 }

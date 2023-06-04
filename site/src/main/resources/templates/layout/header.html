@@ -16,7 +16,7 @@
             <a class="btn btn-secondary my-2 my-sm-0" style="background-color: #007bff; color: #fff;" sec:authorize-expr="!isAuthenticated()" th:href="@{/login}">Login</a>
             <a class="btn btn-secondary my-2 my-sm-0" style="background-color: #007bff; color: #fff;" sec:authorize-expr="isAuthenticated()" th:href="@{/update}" method="post">정보변경</a>
             <form class="form-inline" sec:authorize-expr="isAuthenticated()" th:action="@{/logout}" method="post">
-              <button class="btn btn-secondary my-2 my-sm-0"  style="background-color: #007bff; color: #fff;" type="submit">logout</button>
+              <button class="btn btn-secondary my-2 my-sm-0"  style="background-color: #007bff; color: #fff;" type="submit">로그아웃</button>
             </form>
           </div>
         </li>

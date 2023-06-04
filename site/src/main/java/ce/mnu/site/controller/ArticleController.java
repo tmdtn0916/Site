@@ -1,10 +1,13 @@
 package ce.mnu.site.controller;
 
+import ce.mnu.site.dto.ReplyDto;
 import ce.mnu.site.entity.Article;
+import ce.mnu.site.entity.Reply;
 import ce.mnu.site.entity.SiteUser;
-import ce.mnu.site.repository.ArticleRepository;
 import ce.mnu.site.repository.SiteUserRepository;
 import ce.mnu.site.service.ArticleService;
+import ce.mnu.site.service.ReplyService;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -16,16 +19,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.format.DateTimeFormatter;
+
 @Controller
 @RequestMapping("/bbs")
 public class ArticleController {
     @Autowired
-    private ArticleRepository repository;
-
-    @Autowired
     private SiteUserRepository userRepository;
     @Autowired
+    private ReplyService replyService;
+    @Autowired
     private ArticleService service;
+
+    @Autowired
+    SessionFactory factory;
 
     @GetMapping("/write")
     public String article(Model model) {
@@ -51,7 +58,26 @@ public class ArticleController {
 
     @GetMapping("/read/{id}")
     public String read(Model model, @PathVariable Long id) {
-        model.addAttribute("board", service.findById(id));
+        Article article = service.findById(id);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        article.setFormattedCreateTime(article.getCreateTime().format(formatter));
+        model.addAttribute("board", article);
+        model.addAttribute("comments",article.getComments());
+        model.addAttribute("comment",new Reply());
+        article.setViewCount(article.getViewCount() + 1);
+        service.save(article);
         return "board";
     }
+
+    @PostMapping("/comment/create")
+    public String createComment(@RequestBody ReplyDto replyDto) {
+        Long articleId = replyDto.getArticleId();
+        String content = replyDto.getContent();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+        SiteUser user = userRepository.findByEmail(email);
+        replyService.saveReply(articleId,content,user);
+        return "home";
+    }
+
 }
