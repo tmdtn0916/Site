@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Controller
@@ -46,6 +47,7 @@ public class ArticleController {
         String email = auth.getName();
         SiteUser user = userRepository.findByEmail(email);
         article.setUser(user);
+        article.setCreateTime(LocalDateTime.now());
         service.write(article);
         return ResponseEntity.ok("ok");
     }
@@ -70,14 +72,15 @@ public class ArticleController {
     }
 
     @PostMapping("/comment/create")
-    public String createComment(@RequestBody ReplyDto replyDto) {
+    @ResponseBody
+    public ResponseEntity<String> createComment(@RequestBody ReplyDto replyDto) {
         Long articleId = replyDto.getArticleId();
         String content = replyDto.getContent();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
         SiteUser user = userRepository.findByEmail(email);
         replyService.saveReply(articleId,content,user);
-        return "home";
+        return ResponseEntity.ok("success");
     }
 
 }

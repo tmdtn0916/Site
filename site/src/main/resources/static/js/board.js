@@ -1,10 +1,10 @@
 const replySave = document.getElementById('reply-save-btn');
 replySave.addEventListener('click', function () {
     let id =Number($("#articleId").val())
-    console.log(id)
+    let content = document.getElementById("content").value;
     let data = {
         articleId: id,
-        content: $("#content").val()
+        content:content
     }
     $.ajax({
         type: "POST",
