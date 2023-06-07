@@ -58,6 +58,12 @@ public class ArticleController {
         return "articles";
     }
 
+    @GetMapping("/best")
+    public String best(Model model, @PageableDefault(size = 5, sort = "viewCount", direction = Sort.Direction.DESC)Pageable pageable) {
+        model.addAttribute("boards", service.articleList(pageable));
+        return "home";
+    }
+
     @GetMapping("/read/{id}")
     public String read(Model model, @PathVariable Long id) {
         Article article = service.findById(id);

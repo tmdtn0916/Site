@@ -3,7 +3,6 @@ package ce.mnu.site.controller;
 import ce.mnu.site.dto.UserDto;
 import ce.mnu.site.entity.SiteUser;
 import ce.mnu.site.repository.SiteUserRepository;
-import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UserController {
@@ -22,11 +20,6 @@ public class UserController {
 
     @Autowired
     BCryptPasswordEncoder encoder;
-
-    @GetMapping("/home")
-    public String home() {
-        return "home";
-    }
 
     @GetMapping("/homepage")
     public String homepage() {
@@ -54,7 +47,7 @@ public class UserController {
     }
 
     @GetMapping("/update")
-    public String editUser(Model model, HttpSession session) {
+    public String editUser(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
         SiteUser user = userRepository.findByEmail(email);
